@@ -56,10 +56,11 @@ interface SerialTaskOptions<F extends Fn> {
 
   /**
    * Returns an array of arguments that will be passed to the next task
+   * - **MUST return an array of arguments!**
    * - if you use `createSerialTaskAsync`, this function will be called with `await`
-   * - when calling the first task(no result before), the `lastReturn` will be `undefined`
+   * - when calling the first task(no result before), the `lastReturn` will be set to `undefined`
    * @default
-   *  (_task: Fn, _index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) => [...args, result]
+   *  (_task: Fn, index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) =>index === 0 ? args : [lastReturn]
    * @param task current task function
    * @param index index of current task
    * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
@@ -89,7 +90,7 @@ interface SerialTaskOptions<F extends Fn> {
     tasks: F[],
     args: Parameters<F>,
     lastReturn: ReturnType<F>
-  ) => Parameters<F>;
+  ) => unknown[];
 
   /**
    * Break the loop and return the last result immediately when this function returns `true`

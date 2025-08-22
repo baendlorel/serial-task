@@ -17,11 +17,11 @@ const DEFAULT_BREAKER = () => false;
 const DEFAULT_SKIPPER = DEFAULT_BREAKER;
 const DEFAULT_RESULT_WRAPPER = (
   _task: Fn,
-  _index: number,
+  index: number,
   _tasks: Fn[],
   args: unknown[],
-  result: unknown
-) => [...args, result];
+  lastReturn: unknown
+) => (index === 0 ? args : [lastReturn]);
 
 export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSerialTaskOptions<F> {
   if (typeof options !== 'object' || options === null) {
