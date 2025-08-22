@@ -15,7 +15,13 @@ export const isThenable = (value: unknown): value is Promise<any> => {
 // use same default functions to reduce memory usage
 const DEFAULT_BREAKER = () => false;
 const DEFAULT_SKIPPER = DEFAULT_BREAKER;
-const DEFAULT_RESULTWRAPPER = (...args: unknown[]) => args;
+const DEFAULT_RESULT_WRAPPER = (
+  _task: Fn,
+  _index: number,
+  _tasks: Fn[],
+  args: unknown[],
+  result: unknown
+) => [...args, result];
 
 export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSerialTaskOptions<F> {
   if (typeof options !== 'object' || options === null) {
@@ -27,7 +33,7 @@ export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSe
     tasks,
     breakCondition = DEFAULT_BREAKER,
     skipCondition = DEFAULT_SKIPPER,
-    resultWrapper = DEFAULT_RESULTWRAPPER as any,
+    resultWrapper = DEFAULT_RESULT_WRAPPER as any,
   } = options;
 
   if (typeof name !== 'string') {

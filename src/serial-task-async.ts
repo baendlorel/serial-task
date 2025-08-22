@@ -23,14 +23,14 @@ export function createSerialTaskAsync<F extends Fn>(opts: SerialTaskOptions<F>):
 
   if (tasks.length === 0) {
     const fn = () =>
-      ({ value: null, results: [], trivial: true, breakAt: -1, skipped: [] } as TaskReturn<null>);
+      ({ value: null, results: [], trivial: true, breakAt: -1, skipped: [] }) as TaskReturn<null>;
     defineProperty(fn, 'name', { value: name, configurable: true });
     return fn as unknown as TaskifyAsync<F>;
   }
 
   // & creating the task
   const fn = async function (...args: Parameters<F>): Promise<TaskReturn<R>> {
-    let last = null as R;
+    let last = undefined as R;
 
     const results = new Array<R>(tasks.length);
 
