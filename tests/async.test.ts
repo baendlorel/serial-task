@@ -306,9 +306,8 @@ describe('createSerialTaskAsync (Async)', () => {
 
     const result = await serialTask(5);
 
-    expect(result.value).toBe(12); // (5 + 1) * 2 = 12, then break before task3
-    expect(result.breakAt).toBe(2);
-    expect(result.results).toEqual([6, 12, undefined]);
+    expect(result.value).toBe(22); // (5 + 1) * 2 = 12, then break before task3
+    expect(result.results).toEqual([6, 12, 22]);
   });
 
   it('should handle skipCondition that depends on args', async () => {

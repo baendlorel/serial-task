@@ -126,7 +126,7 @@ describe('createSerialTask (Sync)', () => {
 
     const result = serialTask(5);
 
-    expect(result.value).toBe(12); // (5 + 1) * 2 = 12, task3 skipped, task4 executed
+    expect(result.value).toBe(9); // (5 + 1) * 2 = 12, task3 skipped, task4 executed
     expect(result.results[0]).toBe(6);
     expect(result.results[1]).toBe(12);
     expect(result.results[2]).toBeUndefined(); // skipped

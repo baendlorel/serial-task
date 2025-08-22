@@ -2,8 +2,8 @@ export const defineProperty = Reflect.defineProperty;
 
 export const isArray = Array.isArray;
 
-export const PromiseResolve = Promise.resolve;
-export const PromiseReject = Promise.reject;
+export const PromiseResolve = Promise.resolve.bind(Promise);
+export const PromiseReject = Promise.reject.bind(Promise);
 
 export const isThenable = (value: unknown): value is Promise<any> => {
   if ((typeof value !== 'object' || value === null) && typeof value !== 'function') {
