@@ -47,7 +47,7 @@ describe('scenarios ', () => {
       email: 'JOHN@EXAMPLE.COM',
       age: 25,
     });
-    expect(result).toEqual({
+    expect(result.value).toEqual({
       name: 'john doe',
       email: 'john@example.com',
       age: 25,
@@ -157,6 +157,6 @@ describe('scenarios ', () => {
     };
 
     const result = requestHandler(request);
-    expect(result).toEqual({});
+    expect(result.breakAt).toBe(2);
   });
 });
