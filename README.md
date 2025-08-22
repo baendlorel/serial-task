@@ -1,11 +1,12 @@
-# 🚀 Serial Task
+# Serial Task
 
-[![npm version](https://badge.fury.io/js/serial-task.svg)](https://badge.fury.io/js/serial-task)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Put a list of functions in and get a composed task function. Similar to functional programming's compose (function composition), but with more fine-grained and precise control, and the generated task incurs almost no runtime overhead. ✨
 
 **Note**: For async functions, use `createSerialTaskAsync` instead of `createSerialTask`. Both functions have the same API, but `createSerialTaskAsync` properly handles async/await and Promise-based functions.
+
+For more awesome packages, check out [my homepage💛](https://baendlorel.github.io/?repoType=npm)
 
 ## 📦 Installation
 
@@ -19,7 +20,7 @@ pnpm add serial-task
 
 ## 🎯 Quick Start
 
-**For async funtions**, use `createSerialTaskAsync`:
+> Note: For async funtions(tasks/resultWrapper/conditions), use `createSerialTaskAsync` instead.
 
 ```typescript
 import { createSerialTask } from 'serial-task';
@@ -42,29 +43,7 @@ console.log(result.results); // [6, 12, 11]
 
 The following diagram shows how functions are called in each iteration of the loop:
 
-```mermaid
-flowchart TD
-    A[Start Loop] --> B[Call resultWrapper]
-    B --> C{breakCondition<br/>returns true?}
-    C -->|Yes| D[Break Loop<br/>Set breakAt = index]
-    C -->|No| E{skipCondition<br/>returns true?}
-    E -->|Yes| F[Skip Task<br/>Add index to skipped array]
-    E -->|No| G[Execute Task Function]
-    G --> H[Store result in results array]
-    H --> I[Update lastReturn value]
-    I --> J{More tasks?}
-    F --> J
-    J -->|Yes| K[index++]
-    K --> B
-    J -->|No| L[Return TaskReturn object]
-    D --> L
-
-    style A fill:#e1f5fe
-    style L fill:#e8f5e8
-    style D fill:#fff3e0
-    style F fill:#f3e5f5
-    style G fill:#e3f2fd
-```
+<img src="./assets/flow.svg" alt="Execution Flow" width="400" />
 
 ## 📖 API Reference
 
