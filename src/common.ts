@@ -13,17 +13,17 @@ const DEFAULT_BREAKER = () => false;
 const DEFAULT_SKIPPER = DEFAULT_BREAKER;
 const DEFAULT_RESULTWRAPPER = () => [];
 
-export function normalize(options: SerialTaskOptions): SerialTaskOptions {
+export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSerialTaskOptions<F> {
   if (typeof options !== 'object' || options === null) {
     throw new TypeError(`__NAME__: 'options' must be an object`);
   }
 
   const {
-    name = '',
+    name = 'kskbTask',
     tasks,
     breakCondition = DEFAULT_BREAKER,
     skipCondition = DEFAULT_SKIPPER,
-    resultWrapper = DEFAULT_RESULTWRAPPER,
+    resultWrapper = DEFAULT_RESULTWRAPPER as any,
   } = options;
 
   if (typeof name !== 'string') {

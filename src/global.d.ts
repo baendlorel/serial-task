@@ -18,13 +18,27 @@ interface TaskReturn<R = any> {
    * Means `opts.tasks.length` is 0 or not
    */
   trivial: boolean;
+
+  /**
+   * If the task was broken by `breakCondition`
+   * - `-1` means not broken
+   * - otherwise, the index of the task that caused the break
+   */
+  breakAt: number;
+
+  /**
+   * Index of the skipped tasks
+   */
+  skipped: number[];
 }
 
-type Taskify<F extends Fn> = (...args: Parameters<F>) => Promise<TaskReturn<ReturnType<F>>>;
+type TaskifyAsync<F extends Fn> = (...args: Parameters<F>) => Promise<TaskReturn<ReturnType<F>>>;
+type Taskify<F extends Fn> = (...args: Parameters<F>) => TaskReturn<ReturnType<F>>;
 
-interface SerialTaskOptions<F extends Fn = Fn> {
+interface SerialTaskOptions<F extends Fn> {
   /**
-   * Name of the returned function
+   * Name of the generated task function
+   * - default is `'kskbTask'`
    */
   name?: string;
 
@@ -101,3 +115,5 @@ interface SerialTaskOptions<F extends Fn = Fn> {
     lastReturn: ReturnType<F>
   ) => boolean;
 }
+
+type StrictSerialTaskOptions<F extends Fn> = Required<SerialTaskOptions<F>>;
