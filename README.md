@@ -43,13 +43,15 @@ console.log(result.results); // [6, 12, 11]
 
 The following diagram shows how functions are called in each iteration of the loop:
 
-<img src="./assets/flow.svg" alt="Execution Flow" width="400" />
+<div style="text-align: center">
+  <img src="https://raw.githubusercontent.com/baendlorel/serial-task/main/assets/flow.svg" alt="Execution Flow" width="360" />
+</div>
 
 ## 📖 API Reference
 
-### createSerialTask(options)
+### createSerialTask(options) / createSerialTaskAsync(options)
 
-Creates a synchronous serial task function.
+Creates a sync/async serial task function.
 
 #### Parameters
 
@@ -58,7 +60,11 @@ Creates a synchronous serial task function.
   - **tasks**: `F[]` - Array of functions to be executed in order
   - **breakCondition?**: `function` - Function that determines when to break the loop (default: `() => false`)
   - **skipCondition?**: `function` - Function that determines when to skip a task (default: `() => false`)
-  - **resultWrapper?**: `function` - Function that transforms input between tasks (default: `(...args) => args`)
+  - **resultWrapper?**: `function` - Function that transforms input between tasks, default(means the first task gets original args, subsequent tasks get the last return value):
+  ```ts
+  (_task: Fn, index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) =>
+    index === 0 ? args : [lastReturn];
+  ```
 
 #### Returns
 
