@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type Fn = (...args: any[]) => any;
 
 declare const __IS_DEV__: boolean;
@@ -11,16 +12,18 @@ interface TaskReturn<R = any> {
   /**
    * All results of the tasks
    * - same order as `tasks`
+   * - skipped tasks will be empty slot in this array
+   *   - which means `index in results` is `false`
    */
   results: R[];
 
   /**
-   * Means `opts.tasks.length` is 0 or not
+   * Means `options.tasks.length` is `0`
    */
   trivial: boolean;
 
   /**
-   * If the task was broken by `breakCondition`
+   * If the task breaks, this will record the index of the task that caused the break.
    * - `-1` means not broken
    * - otherwise, the index of the task that caused the break
    */
@@ -43,18 +46,21 @@ interface SerialTaskOptions<F extends Fn> {
   name?: string;
 
   /**
-   * Functions to be executed in order
+   * Functions to be executed in order. The one that iterates internally.
+   * - if you use `createSerialTaskAsync`, these functions will be called with `await`
    * - **Strongly Recommended**: all task functions must have same input type and output type
-   * - creator will use a copy of this array, so you can modify the original array
+   * - creator will directly use this array, so you can modify it dynamically
    * - will be executed from `0` to `length - 1`
    */
-  tasks: F[];
+  tasks: F[] | Fn[];
 
   /**
-   * Returns an array of arguments that will be spread and passed to the next task
+   * Returns an array of arguments that will be passed to the next task
+   * - if you use `createSerialTaskAsync`, this function will be called with `await`
+   * - default is `(...args) => args`
    * @param task current task function
    * @param index index of current task
-   * @param tasks All tasks
+   * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
    * @param args input value of the serial task
    * @param lastReturn returned value of the last task function
    * @returns **must return an array of arguments!**
@@ -85,9 +91,11 @@ interface SerialTaskOptions<F extends Fn> {
 
   /**
    * Break the loop and return the last result immediately when this function returns `true`
+   * - if you use `createSerialTaskAsync`, this function will be called with `await`
+   * - default is `() => false`
    * @param task current task function
    * @param index index of current task
-   * @param tasks All tasks
+   * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
    * @param args input value of the serial task
    * @param lastReturn returned value of the last task function
    */
@@ -101,9 +109,11 @@ interface SerialTaskOptions<F extends Fn> {
 
   /**
    * Give `true` to skip this task item
+   * - if you use `createSerialTaskAsync`, this function will be called with `await`
+   * - default is `() => false`
    * @param task current task function
    * @param index index of current task
-   * @param tasks All tasks
+   * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
    * @param args input value of the serial task
    * @param lastReturn returned value of the last task function
    */

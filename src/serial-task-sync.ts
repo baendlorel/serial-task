@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineProperty, normalize } from './common.js';
-import { PromiseTrapply, PromiseTry } from './promise-try.js';
 
 /**
  * ## Usage
@@ -18,41 +16,42 @@ import { PromiseTrapply, PromiseTry } from './promise-try.js';
 export function createSerialTask<F extends Fn>(opts: SerialTaskOptions<F>): Taskify<F> {
   type R = ReturnType<F>;
 
-  const { name, tasks: tks, breakCondition, skipCondition, resultWrapper } = normalize(opts);
+  const { name, tasks, breakCondition, skipCondition, resultWrapper } = normalize(opts);
 
-  if (tks.length === 0) {
+  if (tasks.length === 0) {
     const fn = () =>
       ({ value: null, results: [], trivial: true, breakAt: -1, skipped: [] } as TaskReturn<null>);
     defineProperty(fn, 'name', { value: name, configurable: true });
     return fn as unknown as Taskify<F>;
   }
 
-  const tasks = tks.slice();
-
   // & creating the task
   const fn = function (...args: Parameters<F>): TaskReturn<R> {
     let last = null as R;
+
     const results = new Array<R>(tasks.length);
 
     let breakAt = -1;
     const skipped: number[] = [];
 
     for (let i = 0; i < tasks.length; i++) {
-      const input = resultWrapper(tasks[i], i, tasks, args, last);
+      const task = tasks[i] as F;
 
-      const toBreak = breakCondition(tasks[i], i, tasks, args, last);
+      const input = resultWrapper(task, i, tasks as F[], args, last);
+
+      const toBreak = breakCondition(task, i, tasks as F[], args, last);
       if (toBreak) {
         breakAt = i;
         break; // end this task
       }
 
-      const toSkip = skipCondition(tasks[i], i, tasks, args, last);
+      const toSkip = skipCondition(task, i, tasks as F[], args, last);
       if (toSkip) {
         skipped.push(i);
         continue; // skip this task
       }
 
-      last = tasks[i].apply(null, input);
+      last = task.apply(null, input);
       results[i] = last;
     }
 

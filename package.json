@@ -1,13 +1,13 @@
 {
-	"name": "<name>",
+	"name": "serial-task",
 	"version": "0.0.1",
 	"author": {
 		"name": "Kasukabe Tsumugi",
 		"email": "futami16237@gmail.com"
 	},
 	"purpose": "npm",
-	"description": "<name>",
-	"description_zh": "<name>",
+	"description": "serial-task",
+	"description_zh": "serial-task",
 	"type": "module",
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
@@ -21,10 +21,10 @@
 	"files": [
 		"dist"
 	],
-	"homepage": "https://github.com/baendlorel/<name>#readme",
+	"homepage": "https://github.com/baendlorel/serial-task#readme",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/baendlorel/<name>"
+		"url": "https://github.com/baendlorel/serial-task"
 	},
 	"keywords": [
 		"typescript",

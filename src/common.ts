@@ -2,6 +2,9 @@ export const defineProperty = Reflect.defineProperty;
 
 export const isArray = Array.isArray;
 
+export const PromiseResolve = Promise.resolve;
+export const PromiseReject = Promise.reject;
+
 export const isThenable = (value: unknown): value is Promise<any> => {
   if ((typeof value !== 'object' || value === null) && typeof value !== 'function') {
     return false;
@@ -9,9 +12,10 @@ export const isThenable = (value: unknown): value is Promise<any> => {
   return 'then' in value && typeof value.then === 'function';
 };
 
+// use same default functions to reduce memory usage
 const DEFAULT_BREAKER = () => false;
 const DEFAULT_SKIPPER = DEFAULT_BREAKER;
-const DEFAULT_RESULTWRAPPER = () => [];
+const DEFAULT_RESULTWRAPPER = (...args: unknown[]) => args;
 
 export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSerialTaskOptions<F> {
   if (typeof options !== 'object' || options === null) {
