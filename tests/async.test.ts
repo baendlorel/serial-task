@@ -42,7 +42,7 @@ describe('createSerialTaskAsync (Async)', () => {
 
     const result = await serialTask();
 
-    expect(result.value).toBe(null);
+    expect(result.value).toBe(undefined);
     expect(result.results).toEqual([]);
     expect(result.trivial).toBe(true);
     expect(result.breakAt).toBe(-1);

@@ -60,7 +60,7 @@ interface SerialTaskOptions<F extends Fn> {
    * - if you use `createSerialTaskAsync`, this function will be called with `await`
    * - when calling the first task(no result before), the `lastReturn` will be set to `undefined`
    * @default
-   *  (_task: Fn, index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) =>index === 0 ? args : [lastReturn]
+   *  (_task: Fn, index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) => index === 0 ? args : [lastReturn]
    * @param task current task function
    * @param index index of current task
    * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically

@@ -20,7 +20,7 @@ pnpm add serial-task
 
 ## 🎯 Quick Start
 
-> Note: For async funtions(tasks/resultWrapper/conditions), use `createSerialTaskAsync` instead.
+> Note: For async functions(tasks/resultWrapper/conditions), use `createSerialTaskAsync` instead.
 
 ```typescript
 import { createSerialTask } from 'serial-task';

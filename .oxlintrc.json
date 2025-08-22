@@ -8,7 +8,7 @@
     "dist/",
     "node_modules/",
     "coverage/",
-    "tests/",
+    "tests/**/*.ts",
     "build/"
   ],
   "plugins": [

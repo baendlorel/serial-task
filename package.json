@@ -1,6 +1,6 @@
 {
 	"name": "serial-task",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"author": {
 		"name": "Kasukabe Tsumugi",
 		"email": "futami16237@gmail.com"
@@ -9,13 +9,11 @@
 	"description": "Put a list of functions in and get a composed task function. Similar to functional programming's compose (function composition), but with more fine-grained and precise control, and the generated task incurs almost no runtime overhead. Supports both synchronous and asynchronous functions.",
 	"description_zh": "将一组函数放入并获取一个组合任务函数。类似于函数式编程的函数组合，但具有更细粒度和精确的控制，生成的任务几乎没有运行时判定的额外开销。支持同步和异步函数。",
 	"type": "module",
-	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		"types": "./dist/index.d.ts",
 		"import": "./dist/index.mjs",
-		"require": "./dist/index.cjs",
 		"default": "./dist/index.mjs"
 	},
 	"files": [
