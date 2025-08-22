@@ -44,7 +44,7 @@ console.log(result.results); // [6, 12, 11]
 The following diagram shows how functions are called in each iteration of the loop:
 
 <div style="text-align: center">
-  <img src="https://raw.githubusercontent.com/baendlorel/serial-task/main/assets/flow.svg" alt="Execution Flow" width="360" />
+  <img src="https://raw.githubusercontent.com/baendlorel/serial-task/main/assets/flow.svg" alt="Execution Flow" width="80%" style="margin-left:10%; border:4px dashed #eee;border-radius:20px"/>
 </div>
 
 ## 📖 API Reference
