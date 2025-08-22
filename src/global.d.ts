@@ -61,7 +61,7 @@ interface SerialTaskOptions<F extends Fn> {
    * @param task current task function
    * @param index index of current task
    * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
-   * @param args input value of the serial task
+   * @param args input value of the whole serial task
    * @param lastReturn returned value of the last task function
    * @returns **must return an array of arguments!**
    * @example
@@ -96,7 +96,7 @@ interface SerialTaskOptions<F extends Fn> {
    * @param task current task function
    * @param index index of current task
    * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
-   * @param args input value of the serial task
+   * @param args input value of the whole serial task
    * @param lastReturn returned value of the last task function
    */
   breakCondition?: (
@@ -114,7 +114,7 @@ interface SerialTaskOptions<F extends Fn> {
    * @param task current task function
    * @param index index of current task
    * @param tasks is `options.tasks`, since `for tasks.length` loop is used here, you can add new tasks dynamically
-   * @param args input value of the serial task
+   * @param args input value of the whole serial task
    * @param lastReturn returned value of the last task function
    */
   skipCondition?: (

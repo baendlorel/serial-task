@@ -2,8 +2,11 @@ import { defineProperty, normalize } from './common.js';
 
 /**
  * ## Usage
+ * **DO NOT Use** this when you have **async functions** in tasks, conditions or result wrapper
+ *
  * Creates a serial task function that executes a series of functions in order.
  * - all given functions(`options.tasks`) will be called in order
+ *   - the returned value will be `options.resultWrapper`ed then passed to the next task
  * - generated task function will have the same length as the first task function
  * - you can appoint generated task function's name by `options.name`
  * - **Strongly Recommended**: all task functions have same input type and output type

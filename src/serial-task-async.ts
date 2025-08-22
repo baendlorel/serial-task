@@ -3,7 +3,9 @@ import { PromiseTrapply, PromiseTry } from './promise-try.js';
 
 /**
  * ## Usage
- * Creates an async serial task function that executes a series of functions in order.
+ * Use this when you have async functions in tasks, conditions or result wrapper
+ *
+ * Creates an async serial task function that executes a series of functions in order
  * - all given functions(`options.tasks`) will be called in order
  * - generated task function will have the same length as the first task function
  * - you can appoint generated task function's name by `options.name`
