@@ -34,6 +34,7 @@ export const replaceOpts = {
     __NAME__,
     __KEBAB_NAME__,
     __PKG_INFO__,
+    'declare const __IS_DEV__: boolean;':'',
     // __OPTS__: `Rollup${__NAME__}Options`,
     // __STRICT_OPTS__: `Rollup${__NAME__}StrictOptions`,
   },
