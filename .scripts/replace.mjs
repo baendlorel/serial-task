@@ -1,5 +1,10 @@
 // @ts-check
-import pkg from '../package.json' with { type: 'json' };
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+/**
+ * @type {import('../package.json')}
+ */
+const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
 
 function formatDateFull(dt = new Date()) {
   const y = dt.getFullYear();
@@ -21,6 +26,7 @@ const __PKG_INFO__ = `## About
  * @version ${pkg.version} (Last Update: ${formatDateFull()})
  * @license ${pkg.license}
  * @link ${pkg.repository.url}
+ * @link https://baendlorel.github.io/ Welcome to my site!
  * @description ${pkg.description.replace(/\n/g, '\n * \n * ')}
  * @copyright Copyright (c) ${new Date().getFullYear()} ${pkg.author.name}. All rights reserved.`;
 
@@ -34,8 +40,23 @@ export const replaceOpts = {
     __NAME__,
     __KEBAB_NAME__,
     __PKG_INFO__,
-    'declare const __IS_DEV__: boolean;':'',
-    // __OPTS__: `Rollup${__NAME__}Options`,
-    // __STRICT_OPTS__: `Rollup${__NAME__}StrictOptions`,
   },
+};
+
+/**
+ * @type {Record<string, any>}
+ */
+export const replaceLiteralOpts = {
+  'declare const __IS_PROD__: boolean;\n': '',
+  'const __IS_PROD__: boolean;\n': '',
+  'logger.info(': "console.log(`%cinfo - __func__:`, 'color:#007ACC',",
+  'logger.warn(': "console.log(`%cwarn - __func__:`, 'color:#ff9900',",
+  'logger.error(': "console.log(`%cerror - __func__:`, 'color:#fb2c36',",
+  'logger.debug(': "console.log(`%cdebug - __func__:`, 'color:#8617a5',",
+  'logger.succ(': "console.log(`%cdebug - __func__:`, 'color:#00a00b',",
+  'logger.verbose(': "console.log(`%cdebug - __func__:`, 'color:#10aaaf',",
+  'logger.WorkspaceNotFound(':
+    "console.log(`%cerror - __func__:`, 'color:#fb2c36','Workspace not found, id:',",
+  'logger.TabNotFoundInWorkspace(':
+    "console.log(`%cerror - __func__:`, 'color:#fb2c36','Tab not found in workspace. tabid,workspaceid:',",
 };

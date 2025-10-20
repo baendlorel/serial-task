@@ -29,15 +29,14 @@
 		"javascript"
 	],
 	"scripts": {
+		"lines": "clear && find ./src -type f \\( -name \"*.ts\" -o -name \"*.tsx\" -o -name \"*.js\" -o -name \"*.mjs\" -o -name \"*.cjs\" -o -name \"*.cpp\" -o -name \"*.h\" -o -name \"*.py\"  -o -name \"*.css\" -o -name \"*.rs\" -o -name \"*.rc\" \\) | xargs wc -l",
 		"test": "clear & vitest",
 		"lint": "oxlint .",
 		"cover": "clear & vitest --coverage",
-		"build": "node ./scripts/rollup.mjs"
+		"build": "tsx ./.scripts/rollup.ts"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"@babel/plugin-proposal-decorators": "^7.28.0",
-		"@babel/preset-env": "^7.28.3",
 		"@rollup/plugin-alias": "^5.1.1",
 		"@rollup/plugin-babel": "^6.0.4",
 		"@rollup/plugin-commonjs": "^28.0.6",
