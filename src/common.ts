@@ -1,3 +1,5 @@
+import { Fn, SerialTaskOptions, StrictSerialTaskOptions } from './global.js';
+
 export const defineProperty = Reflect.defineProperty;
 
 export const isArray = Array.isArray;
@@ -15,13 +17,8 @@ export const isThenable = (value: unknown): value is Promise<any> => {
 // use same default functions to reduce memory usage
 const DEFAULT_BREAKER = () => false;
 const DEFAULT_SKIPPER = DEFAULT_BREAKER;
-const DEFAULT_RESULT_WRAPPER = (
-  _task: Fn,
-  index: number,
-  _tasks: Fn[],
-  args: unknown[],
-  lastReturn: unknown
-) => (index === 0 ? args : [lastReturn]);
+const DEFAULT_RESULT_WRAPPER = (_task: Fn, index: number, _tasks: Fn[], args: unknown[], lastReturn: unknown) =>
+  index === 0 ? args : [lastReturn];
 
 export function normalize<F extends Fn>(options: SerialTaskOptions<F>): StrictSerialTaskOptions<F> {
   if (typeof options !== 'object' || options === null) {

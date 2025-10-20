@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type Fn = (...args: any[]) => any;
+export type Fn = (...args: any[]) => any;
 
-declare const __IS_DEV__: boolean;
-
-interface TaskReturn<R = any> {
+export interface TaskReturn<R = any> {
   /**
    * The result of the last task function
    */
@@ -35,10 +33,10 @@ interface TaskReturn<R = any> {
   skipped: number[];
 }
 
-type TaskifyAsync<F extends Fn> = (...args: Parameters<F>) => Promise<TaskReturn<ReturnType<F>>>;
-type Taskify<F extends Fn> = (...args: Parameters<F>) => TaskReturn<ReturnType<F>>;
+export type TaskifyAsync<F extends Fn> = (...args: Parameters<F>) => Promise<TaskReturn<ReturnType<F>>>;
+export type Taskify<F extends Fn> = (...args: Parameters<F>) => TaskReturn<ReturnType<F>>;
 
-interface SerialTaskOptions<F extends Fn> {
+export interface SerialTaskOptions<F extends Fn> {
   /**
    * Name of the generated task function
    * - default is `'kskbTask'`
@@ -84,13 +82,7 @@ interface SerialTaskOptions<F extends Fn> {
    * }
    * ```
    */
-  resultWrapper?: (
-    task: F,
-    index: number,
-    tasks: F[],
-    args: Parameters<F>,
-    lastReturn: ReturnType<F>
-  ) => unknown[];
+  resultWrapper?: (task: F, index: number, tasks: F[], args: Parameters<F>, lastReturn: ReturnType<F>) => unknown[];
 
   /**
    * Break the loop and return the last result immediately when this function returns `true`
@@ -103,13 +95,7 @@ interface SerialTaskOptions<F extends Fn> {
    * @param args input value of the whole serial task
    * @param lastReturn returned value of the last task function
    */
-  breakCondition?: (
-    task: F,
-    index: number,
-    tasks: F[],
-    args: Parameters<F>,
-    lastReturn: ReturnType<F>
-  ) => boolean;
+  breakCondition?: (task: F, index: number, tasks: F[], args: Parameters<F>, lastReturn: ReturnType<F>) => boolean;
 
   /**
    * Give `true` to skip this task item
@@ -122,13 +108,7 @@ interface SerialTaskOptions<F extends Fn> {
    * @param args input value of the whole serial task
    * @param lastReturn returned value of the last task function
    */
-  skipCondition?: (
-    task: F,
-    index: number,
-    tasks: F[],
-    args: Parameters<F>,
-    lastReturn: ReturnType<F>
-  ) => boolean;
+  skipCondition?: (task: F, index: number, tasks: F[], args: Parameters<F>, lastReturn: ReturnType<F>) => boolean;
 }
 
-type StrictSerialTaskOptions<F extends Fn> = Required<SerialTaskOptions<F>>;
+export type StrictSerialTaskOptions<F extends Fn> = Required<SerialTaskOptions<F>>;

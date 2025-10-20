@@ -1,3 +1,4 @@
+import { Fn, SerialTaskOptions, TaskifyAsync, TaskReturn } from './global.js';
 import { defineProperty, normalize } from './common.js';
 import { PromiseTrapply, PromiseTry } from './promise-try.js';
 

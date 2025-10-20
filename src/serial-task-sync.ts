@@ -1,3 +1,4 @@
+import { Fn, SerialTaskOptions, Taskify, TaskReturn } from './global.js';
 import { defineProperty, normalize } from './common.js';
 
 /**

@@ -1,8 +1,7 @@
+import { Fn } from './global.js';
 import { isThenable, PromiseReject, PromiseResolve } from './common.js';
 
-type PromiseReturn<F extends Fn, T = ReturnType<F>> = Promise<
-  T extends Promise<unknown> ? Awaited<T> : T
->;
+type PromiseReturn<F extends Fn, T = ReturnType<F>> = Promise<T extends Promise<unknown> ? Awaited<T> : T>;
 
 export function PromiseTry(fn: Fn, thisArg: unknown, ...args: Parameters<Fn>): PromiseReturn<Fn> {
   try {

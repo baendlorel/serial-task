@@ -1,8 +1,5 @@
 import { createSerialTaskAsync } from './serial-task-async.js';
 import { createSerialTask } from './serial-task-sync.js';
+import { SerialTaskOptions, TaskReturn, Taskify, TaskifyAsync } from './global.js';
 
-if (typeof __IS_DEV__ === 'undefined') {
-  Reflect.set(globalThis, '__IS_DEV__', true);
-}
-
-export { createSerialTask, createSerialTaskAsync };
+export { createSerialTask, createSerialTaskAsync, SerialTaskOptions, TaskReturn, Taskify, TaskifyAsync };
